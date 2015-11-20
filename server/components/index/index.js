@@ -43,9 +43,7 @@ function getFirstTheme(callback) {
 // Gets the scripts and styles from the chosen theme and inserts them into the index.html
 function compileIndex(theme, extensionJSONS) {
 	// Get file paths for the server/views/index and the chosen theme's scripts and styles templates
-	var viewFilePath = path.join(config.root, '/server/views/index-template.html'),
-		themeJSPath = path.join(app.get('appPath'), theme.scriptsPath), //themesFolder + theme.url + '/assets/scripts.html',
-		themeCSSPath = path.join(app.get('appPath'), theme.stylesPath); //themesFolder + theme.url + '/assets/styles.html';
+	var viewFilePath = path.join(config.root, 'server', 'views', 'index-template.html'), themeJSPath, themeCSSPath;
 
 	var index, themeJS, themeCSS, statsjs, statscss, hasThemeMin = false;
 
@@ -67,6 +65,8 @@ function compileIndex(theme, extensionJSONS) {
 
 	if(!hasThemeMin) {
 		try {
+      themeJSPath = path.join(app.get('appPath'), theme.scriptsPath), //themesFolder + theme.url + '/assets/scripts.html',
+  		themeCSSPath = path.join(app.get('appPath'), theme.stylesPath); //themesFolder + theme.url + '/assets/styles.html';
 			themeJS = fs.readFileSync(themeJSPath,'utf8');
 			themeCSS = fs.readFileSync(themeCSSPath,'utf8');
 		} catch(error) {
