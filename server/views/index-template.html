@@ -31,24 +31,17 @@
     <link rel="stylesheet" href="app/app.css">
     <!-- endinject -->
     
-    <!-- theme:css -->
-<link rel="stylesheet" href="themes/meanbase-starter/assets/theme.css">
-<!-- endinject -->
+    <!-- Theme Styles -->
     <!-- Extensions CSS -->
-      <link rel="stylesheet" href="extensions/extensible-areas-extension/extensible-areas-extension.css">
-				 <link rel="stylesheet" href="extensions/gallery/gallery.css">
-				 <link rel="stylesheet" href="extensions/menu-area/menu-area.css">
-				 <link rel="stylesheet" href="extensions/panel/panel.css">
-				 <link rel="stylesheet" href="extensions/search-form/search-form.css">
-				 <!-- extensions:css -->
+      <!-- extensions:css -->
     <!-- End Extensions CSS -->
 
     <script>
       // This theme name gets dynamically created on the server when it compiles this file so it can be used throughout the application especially ui-router
       window.meanbaseGlobals = {};
-      window.meanbaseGlobals.siteTheme = 'meanbase-starter'; //Do not change this value, it is used by the server string.replace() as a placeholder for the chosen theme
-      window.meanbaseGlobals.themeTemplates = {"page":["page"],"home":["home"],"article":["article"],"archive":["archive"]}; //Do not change this value, it is used by the server string.replace() as a placeholder for the theme's templates
-      window.meanbaseGlobals.themeTemplatePaths = {"page":{"template":"themes/meanbase-starter/templates/page/page-template","screenshot":"themes/meanbase-starter/screenshots/page-screenshot.png"},"home":{"template":"themes/meanbase-starter/templates/home/home-template","screenshot":"themes/meanbase-starter/screenshots/home-screenshot.png"},"article":{"template":"themes/meanbase-starter/templates/article/article-template","screenshot":"themes/meanbase-starter/screenshots/article-screenshot.png"},"archive":{"template":"themes/meanbase-starter/templates/archive/archive-template","screenshot":"themes/meanbase-starter/screenshots/archive-screenshot.png"}}; //Do not change this value, it is used by the server string.replace() as a placeholder for the theme's templates
+      window.meanbaseGlobals.siteTheme = 'theme-name'; //Do not change this value, it is used by the server string.replace() as a placeholder for the chosen theme
+      window.meanbaseGlobals.themeTemplates = 'theme-templates'; //Do not change this value, it is used by the server string.replace() as a placeholder for the theme's templates
+      window.meanbaseGlobals.themeTemplatePaths = 'themeTemplatePaths'; //Do not change this value, it is used by the server string.replace() as a placeholder for the theme's templates
     </script>
   </head>
   <body ng-app="meanbaseApp">
@@ -133,9 +126,9 @@
     
     <script src="app/app.js"></script>
     
-    <script src="app/account/settings/settings.controller.js"></script>
-    
     <script src="app/account/login/login.controller.js"></script>
+    
+    <script src="app/account/settings/settings.controller.js"></script>
     
     <script src="app/account/signup/signup.controller.js"></script>
     
@@ -217,13 +210,13 @@
     
     <script src="app/import/import.controller.js"></script>
     
-    <script src="app/extensions/extensions.js"></script>
-    
-    <script src="app/extensions/extensions.controller.js"></script>
-    
     <script src="app/comments/comments.js"></script>
     
     <script src="app/comments/comments.controller.js"></script>
+    
+    <script src="app/extensions/extensions.js"></script>
+    
+    <script src="app/extensions/extensions.controller.js"></script>
     
     <script src="app/cms/cms.js"></script>
     
@@ -237,19 +230,9 @@
     
     <!-- endinject -->
     
-    <!-- theme:js -->
-<script src="themes/meanbase-starter/templates/archive/archive.controller.js"></script>
-<script src="themes/meanbase-starter/templates/article/article.controller.js"></script>
-<script src="themes/meanbase-starter/templates/home/home.controller.js"></script>
-<script src="themes/meanbase-starter/templates/page/page.controller.js"></script>
-<!-- endinject -->
+    <!-- Theme Scripts -->
     <!-- Extensions JS -->
-      <script src="extensions/extensible-areas-extension/extensible-areas-extension.directive.js"></script>
-				 <script src="extensions/gallery/gallery.directive.js"></script>
-				 <script src="extensions/menu-area/menu-area.directive.js"></script>
-				 <script src="extensions/panel/panel.directive.js"></script>
-				 <script src="extensions/search-form/search-form.directive.js"></script>
-				 <!-- extensions:js -->
+      <!-- extensions:js -->
     <!-- End Extensions JS -->
 </body>
 </html>

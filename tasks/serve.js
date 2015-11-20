@@ -6,7 +6,7 @@ module.exports = function (gulp, plugins, config) {
 	});
 
 	// Serve
-	gulp.task('clean:tmp', function () {  
+	gulp.task('clean:tmp', function () {
 		return plugins.del('.tmp/**');
 	});
 
@@ -29,7 +29,7 @@ module.exports = function (gulp, plugins, config) {
 
 	// Inject main bower files into server/views/index.html at vendor:js and vendor:css
 	gulp.task('injectBowerComponents', function() {
-		return gulp.src('server/views/index.html')
+		return gulp.src('server/views/index-template.html')
 		  .pipe(plugins.inject(gulp.src(plugins.mainBowerFiles(), {read: false}), {
 		  	name: 'vendor',
 		  	ignorePath: 'client',
@@ -40,10 +40,10 @@ module.exports = function (gulp, plugins, config) {
 
 	// Inject scripts into server/views/index.html at app:js
 	gulp.task('injectComponents', function() {
-		return gulp.src('server/views/index.html')
+		return gulp.src('server/views/index-template.html')
 		  .pipe(
-		  	plugins.inject(gulp.src(['client/{app,components}/**/*.js', 
-		  			'!**/*spec.js', 
+		  	plugins.inject(gulp.src(['client/{app,components}/**/*.js',
+		  			'!**/*spec.js',
 		  			'!**/*mock.js',
 		  			'!client/components/ckeditor/FileBrowser/fileBrowser.js'
 		  		]).pipe(plugins.angularFilesort()),
@@ -85,7 +85,6 @@ module.exports = function (gulp, plugins, config) {
 	});
 
 	gulp.task('serve', function() {
-		console.log("plugins", plugins);
 		plugins.express.run(['server/app.js'], {livereload: true});
 
 		// app and components stylus files update app.css
@@ -106,7 +105,7 @@ module.exports = function (gulp, plugins, config) {
 			'client/{app, components, extensions, themes}/**/*.{css, js, styl}',
 			'client/themes/**/*.css',
 			'client/themes/**/*.html',
-			'server/views/index.html', 
+			'server/views/index-template.html',
 			'.tmp/**/*app.css',
 			'server/**/*.{js, json}'
 		], {read: false}, plugins.express.notify);

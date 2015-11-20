@@ -1,8 +1,8 @@
 'use strict';
 
 /**
- * Compiles the client/index.html from a copy in server/views/index.html with the chosen theme assets
- * Grunt loads /app/ themes and scripts into server/views/index.html
+ * Compiles the client/index.html from a copy in server/views/index-template.html with the chosen theme assets
+ * Grunt loads /app/ themes and scripts into server/views/index-template.html
  */
 
  var config = require('../../config/environment');
@@ -20,10 +20,10 @@ module.exports = function(theme) {
 	} else {
 		Themes.find({active: true}, function(err, found) {
 			if(err) { return console.log('Getting active theme error', err); }
-			if(found < 1) { 
+			if(found < 1) {
 				getFirstTheme(function(found) {
 					compileIndex(found, GLOBAL.meanbaseGlobals.extensions);
-				}); 
+				});
 			} else {
 				compileIndex(found[0], GLOBAL.meanbaseGlobals.extensions);
 			}
@@ -43,7 +43,7 @@ function getFirstTheme(callback) {
 // Gets the scripts and styles from the chosen theme and inserts them into the index.html
 function compileIndex(theme, extensionJSONS) {
 	// Get file paths for the server/views/index and the chosen theme's scripts and styles templates
-	var viewFilePath = path.join(config.root, '/server/views/index.html'),
+	var viewFilePath = path.join(config.root, '/server/views/index-template.html'),
 		themeJSPath = path.join(app.get('appPath'), theme.scriptsPath), //themesFolder + theme.url + '/assets/scripts.html',
 		themeCSSPath = path.join(app.get('appPath'), theme.stylesPath); //themesFolder + theme.url + '/assets/styles.html';
 
@@ -67,7 +67,6 @@ function compileIndex(theme, extensionJSONS) {
 
 	if(!hasThemeMin) {
 		try {
-			console.log('read html');
 			themeJS = fs.readFileSync(themeJSPath,'utf8');
 			themeCSS = fs.readFileSync(themeCSSPath,'utf8');
 		} catch(error) {
@@ -80,8 +79,8 @@ function compileIndex(theme, extensionJSONS) {
 
 
 	// Try to read the file contents
-	
-	
+
+
 
 	// If the file reads were successful then insert given theme's assets into index.html
 	index = index.replace('theme-name', theme.url);
@@ -113,8 +112,9 @@ function compileIndex(theme, extensionJSONS) {
 	GLOBAL.meanbaseGlobals.extensions = null;
 
 	try {
+    GLOBAL.indexHTML = index;
 		// Write the results back to index.html in client/ folder
-		fs.writeFileSync(app.get('appPath') + 'index.html', index, 'utf8');
+		fs.writeFileSync(path.join(config.root, 'server', 'views', 'index.html'), index, 'utf8');
 		console.log('writing to index from index');
 	} catch(error) {
 		console.log('error: ', error);

@@ -4,7 +4,7 @@
  * 	Clears previous dist folder
  * 	Copies appropriate files and folders and font awesome and glyphicons
  * 	Generates vendor js and css in dist app folder. Compiles jade templates and js files into app.min.js
- * 	Injects those scripts and styles into dist/server/views/index.html
+ * 	Injects those scripts and styles into dist/server/views/index-template.html
  * 	Creates theme.min.js and theme.min.css from (scripts, jade, html) and (stylus and css) from each theme
  * 	injects it into scripts.html and styles.html
  * @author Jon Paul Miles <milesjonpaul@gmail.com>
@@ -12,20 +12,20 @@
 
 module.exports = function (gulp, plugins, config) {
 	// Build automation
-	gulp.task('clean', function () {  
+	gulp.task('clean', function () {
 		return plugins.del('dist/**');
 	});
 
-	// Inject app and vendors scripts and styles into dist/server/views/index.html
+	// Inject app and vendors scripts and styles into dist/server/views/index-template.html
 	gulp.task('injectBuild', function() {
-		return gulp.src('dist/server/views/index.html')
+		return gulp.src('dist/server/views/index-template.html')
 		  .pipe(plugins.inject(gulp.src(['dist/public/app/app.min.*'], {read: false}), {
-		  	name: 'app', 
+		  	name: 'app',
 		  	ignorePath: '/dist/public/',
 		  	addRootSlash: false
 		  }))
 		  .pipe(plugins.inject(gulp.src(['dist/public/app/vendors.min.*'], {read: false}), {
-		  	name: 'vendor', 
+		  	name: 'vendor',
 		  	ignorePath: '/dist/public/',
 		  	addRootSlash: false
 		  }))
@@ -63,10 +63,10 @@ module.exports = function (gulp, plugins, config) {
 	});
 
 	gulp.task('injectComponents', function() {
-		return gulp.src('server/views/index.html')
+		return gulp.src('server/views/index-template.html')
 		  .pipe(
-		  	plugins.inject(gulp.src(['client/{app,components}/**/*.js', 
-		  			'!**/*spec.js', 
+		  	plugins.inject(gulp.src(['client/{app,components}/**/*.js',
+		  			'!**/*spec.js',
 		  			'!**/*mock.js',
 		  			'!client/components/ckeditor/FileBrowser/fileBrowser.js'
 		  		]).pipe(plugins.angularFilesort()),
@@ -131,11 +131,11 @@ module.exports = function (gulp, plugins, config) {
 		    	module: 'meanbaseApp',
 		    	transformUrl: function(url) {
 		    		var finalUrl = plugins.path.join('themes', folder, '/', url);
-		    		var templateName = finalUrl.match(/[^(\/|\\)]*(?=-template.[^.]+($|\?))/);	    		
+		    		var templateName = finalUrl.match(/[^(\/|\\)]*(?=-template.[^.]+($|\?))/);
 		    		if(templateName) {
 		    			templateName = templateName[0].replace(',', '');
 		    			themeJSONTemplatePaths[templateName] = {
-		    				"template": finalUrl             	
+		    				"template": finalUrl
 		    			};
 		    			templateMapping[templateName] = [templateName];
 		    		}
@@ -155,14 +155,14 @@ module.exports = function (gulp, plugins, config) {
 		  			var templateName = finalUrl.match(/[^(\/|\\)]*(?=-template.[^.]+($|\?))/)[0].replace(',', '');
 		  			if(templateName) {
 		  				themeJSONTemplatePaths[templateName] = {
-		  					"template": finalUrl             	
+		  					"template": finalUrl
 		  				};
 		  				templateMapping[templateName] = [templateName];
 		  			}
 		  			return finalUrl;
 		  		}
 		  	}));
-	  	
+
 	  	// Compile app.min.js from theme scripts and html templates
 			plugins.es.merge(js, templates, html)
 	    	.pipe(plugins.concat('theme.min.js'))
@@ -198,9 +198,9 @@ module.exports = function (gulp, plugins, config) {
 									}
 								}
 							}
-							
-							
-					    return tmpUrl;     
+
+
+					    return tmpUrl;
 					  }))
 					  .pipe(plugins.es.wait(function(err) {
 					  	gulp.src( plugins.path.join('client/themes/', folder, '**/*theme.json') )
@@ -213,7 +213,7 @@ module.exports = function (gulp, plugins, config) {
 					  		    json.templates = templateMapping;
 					  		    json.preview = themePreview;
 					  		    json.themeJSONPath = themeJSONPath;
-					  		    return json; // must return JSON object. 
+					  		    return json; // must return JSON object.
 					  		}))
 					  		.pipe(gulp.dest(plugins.path.join("dist/public/themes/", folder, '/') ));
 					  }));
@@ -267,8 +267,8 @@ module.exports = function (gulp, plugins, config) {
 
 	      // Annotate app scripts
 	    	var js = gulp.src([
-	    		'client/{app,components}/**/*.js', 
-	    		'!**/*spec.js', 
+	    		'client/{app,components}/**/*.js',
+	    		'!**/*spec.js',
 	    		'!**/*mock.js',
 	    		'!client/components/ckeditor/FileBrowser/fileBrowser.js'
 	    	])
@@ -289,7 +289,7 @@ module.exports = function (gulp, plugins, config) {
 			    	removeStyleLinkTypeAttributes: true
 			    }))
 			    .pipe(plugins.ngtemplate({module: 'meanbaseApp'}));
-	    	
+
 	    	// Compile app.min.js from theme scripts and html templates
 	  		var appJS = plugins.es.merge(js, templates)
 	  			.pipe(plugins.uglify())
@@ -303,4 +303,3 @@ module.exports = function (gulp, plugins, config) {
 	  });
 	});
 };
-

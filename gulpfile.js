@@ -1,12 +1,12 @@
 /**
- * @overview Defines 
+ * @overview Defines
  * gulp install - Establishes app so its ready for development preview
  * 	Installs npm and bower.
  * 	Compiles jade into .tmp
  * 	Injects stylus files into app.styl
  * 	Compiles app.styl to .tmp
- * 	Injects vendor and app scripts and styles into server/views/index.html
- * 	
+ * 	Injects vendor and app scripts and styles into server/views/index-template.html
+ *
  * gulp compose
  * 	Does everything install does except for npm and bower
  * @author Jon Paul Miles <milesjonpaul@gmail.com>
@@ -71,7 +71,7 @@ tasks.forEach(function (file) {
 });
 
 gulp.task('default', function() {
-	
+
 });
 
 gulp.task('compose', function() {
