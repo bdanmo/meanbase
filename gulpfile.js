@@ -24,6 +24,7 @@ var folders = {
     gulp: path.resolve(__dirname, 'gulp', 'app'),
     root: path.resolve(__dirname, 'public', 'app'),
     components: path.resolve(__dirname, 'public', 'app', 'components'),
+    init: path.resolve(__dirname, 'public', 'app', 'init'),
     shared: path.resolve(__dirname, 'public', 'shared'),
     bower: path.resolve(__dirname, 'public', 'app', 'bower_components')
   },
@@ -117,7 +118,7 @@ gulp.task('admin', function(done) {
 })
 
 gulp.task('app', function(done) {
-  plugins.runSequence('copy-fonts-app', 'create-bower-app', 'import-app', done)
+  plugins.runSequence('copy-fonts-app', 'create-bower-app', 'init-reducers', 'import-reducers', 'inject-views', 'import-stylus-files', done)
 })
 
 gulp.task('themes', function(done) {

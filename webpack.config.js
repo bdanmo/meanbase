@@ -7,6 +7,7 @@ var folders = {
   root: path.resolve(__dirname, 'public'),
   slash: path.resolve(__dirname, 'public') + '/',
   app: path.resolve(__dirname, 'public', 'app'),
+  appInit: path.resolve(__dirname, 'public', 'app', 'init'),
   admin: path.resolve(__dirname, 'public', 'admin'),
   themes: path.resolve(__dirname, 'public', 'themes'),
   extensions: path.resolve(__dirname, 'public', 'extensions')
@@ -80,8 +81,6 @@ var config = {
       // { test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "file-loader" }
 
       { test: /\.(jpe?g|png|gif|svg)$/, loader:'url', include : folders.root },
-      // { test: /\.svg/, loader:'url', include : folders.root },
-
       {
         test: /\.(jpe|jpg|woff|woff2|eot|ttf|svg)(\?.*$|$)/,
         loader:'url'
@@ -101,13 +100,57 @@ var config = {
 }
 
 var appConfig = Object.assign({}, config, {
-  entry: folders.app,
+  entry: folders.appInit,
   output: {
     path: folders.app,
     pathinfo: true,
     filename: 'bundle.js',
     sourceMapFilename: "[file].map"
-  }
+  },
+  module : {
+    noParse: [],
+    loaders : [
+      {
+        test: /\.html$/,
+        loader: "string",
+        include : folders.app,
+        exclude: nodeAndBower
+      },
+      {
+        test: /\.js$/,
+        include: folders.app,
+        loader: 'babel',
+        exclude: nodeAndBower,
+        query: {
+          presets: ['es2015', 'stage-1', 'angular2'],
+          "plugins": [
+            "angular2-annotations",
+            "transform-decorators-legacy",
+            "transform-class-properties",
+            "transform-flow-strip-types",
+            "transform-object-rest-spread"
+          ]
+        }
+      },
+      {
+        test: /\.styl$/,
+        include : folders.root,
+        exclude: nodeAndBower,
+        loaders: ['style', 'css', 'stylus']
+      },
+      {
+        test: /\.css/,
+        include : folders.root,
+        exclude: nodeAndBower,
+        loaders: ['style', 'css']
+      },
+      { test: /\.(jpe?g|png|gif|svg)$/, loader:'url', include : folders.root },
+      {
+        test: /\.(jpe|jpg|woff|woff2|eot|ttf|svg)(\?.*$|$)/,
+        loader:'url'
+      }
+    ]
+  },
 });
 
 var adminConfig = Object.assign({}, config, {
