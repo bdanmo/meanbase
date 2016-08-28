@@ -9,5 +9,6 @@ import app from '../components/app/app.js'
 // end inject views
 
 export default provideRouter([
-  { path: '**', component: app}
+  { path: '', component: app},
+  { path: ':pageUrl', component: app}
 ])

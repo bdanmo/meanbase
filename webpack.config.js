@@ -117,6 +117,12 @@ var appConfig = Object.assign({}, config, {
         exclude: nodeAndBower
       },
       {
+        test: /\.jade$/,
+        loaders: ["string", "jade-html"],
+        include : folders.root,
+        exclude: nodeAndBower
+      },
+      {
         test: /\.js$/,
         include: folders.app,
         loader: 'babel',
