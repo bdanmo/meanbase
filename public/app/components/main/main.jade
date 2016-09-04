@@ -1,7 +1,11 @@
 .meanbase-front(ng-class="{loggedIn: isLoggedIn}")
-	include ../cms.headbar/cms.headbar.jade
-	div(ui-view="" ng-class="{'fixed-header-stopper': isLoggedIn}")#main-view
-		div.mb-loading-screen.text-center
-			h1
-				i.fa.fa-spinner.fa-spin 
-				span|  Loading Template
+  include ../cms.headbar/cms.headbar.jade
+  .vanilla-modal-wrapper
+    .vanilla-modal-inner
+      a(rel='modal:close') Close
+      .vanilla-modal-content
+  div(ui-view="" ng-class="{'fixed-header-stopper': isLoggedIn}")#main-view
+    div.mb-loading-screen.text-center
+      h1
+        i.fa.fa-spinner.fa-spin 
+        span|  Loading Template

@@ -59,7 +59,7 @@ angular.module('meanbaseApp', [
   //   };
   // })
 
-  .run(function ($rootScope, $location, Auth, ngAnalyticsService, api, $state) {
+  .run(function ($rootScope, $location, Auth, ngAnalyticsService, api, $state, $timeout) {
 
     api.settings.find({name: 'clientID'}).then(function(res) {
       if(!res[0] || ! res[0].value) { return false; }

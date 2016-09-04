@@ -6,6 +6,11 @@
   // @ngInject
   function MainCtrl($rootScope, $scope, $http, Auth, $location, endpoints, $modal, $sanitize, helpers, $timeout, toastr, api, $compile, $templateCache) {
 
+    window.modal = new VanillaModal({
+      modal : '.vanilla-modal-wrapper',
+      modalInner : '.vanilla-modal-inner',
+      modalContent : '.vanilla-modal-content'
+    })
     const autoSaveLapse = 100
 
     // It's becoming a standard in meanbase prepare the api endpoints the controller will hit at the top of the file.
