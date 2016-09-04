@@ -26,13 +26,13 @@ import "./code/components/crud/crud.service.js";
 import "./code/components/camel-to-human/camel-to-human.filter.js";
 import "./code/account/login/login.controller.js";
 import "./code/account/settings/settings.controller.js";
-import "./code/users/users.js";
-import "./code/users/users.controller.js";
+import "./code/pages/pages.js";
+import "./code/pages/pages.controller.js";
 import "./code/themes/themes.js";
 import "./code/themes/themes.controller.js";
 import "./code/themes/theme.modal.controller.js";
-import "./code/pages/pages.js";
-import "./code/pages/pages.controller.js";
+import "./code/users/users.js";
+import "./code/users/users.controller.js";
 import "./code/media/media.js";
 import "./code/media/media.controller.js";
 import "./code/import/import.js";
@@ -50,22 +50,22 @@ import "./code/analytics/analytics.controller.js";
 // end inject js
 
 // inject jade
-import "./code/analytics/analytics.jade";
 import "./code/cms/cms.jade";
+import "./code/analytics/analytics.jade";
 import "./code/comments/comments.jade";
+import "./code/media/media.jade";
 import "./code/extensions/extensions.jade";
 import "./code/import/import.jade";
-import "./code/media/media.jade";
 import "./code/pages/pages.jade";
-import "./code/themes/themes.jade";
 import "./code/users/users.jade";
+import "./code/themes/themes.jade";
 import "./code/account/login/login.jade";
 import "./code/account/settings/settings.jade";
 import "../shared/image-selector/image-selector.jade";
 import "../shared/missing/missing.jade";
+import "../shared/validate/validate.jade";
 import "../shared/sortable/sortable.jade";
 import "../shared/taglist/taglist.jade";
-import "../shared/validate/validate.jade";
 // end inject jade
 
 // inject stylus
