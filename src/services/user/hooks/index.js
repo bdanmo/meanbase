@@ -3,8 +3,16 @@
 const globalHooks = require('../../../hooks');
 const hooks = require('feathers-hooks');
 const auth = require('feathers-authentication').hooks;
+const verifyHooks = require('feathers-service-verify-reset').hooks
+
+console.log("require('feathers-service-verify-reset')", require('feathers-service-verify-reset'));
 
 const permissionName = 'manageUsers';
+
+function emailVerification(hook, next) {
+  // ...
+  next(null, hook);
+}
 
 exports.before = {
   all: [],
@@ -25,7 +33,8 @@ exports.before = {
     // auth.restrictToOwner({ ownerField: '_id' }),
   ],
   create: [
-    auth.hashPassword()
+    auth.hashPassword(),
+    verifyHooks.addVerification()
   ],
   update: [
     auth.verifyToken(),
@@ -62,14 +71,23 @@ exports.after = {
     hooks.remove('password')
   ],
   find: [
+    verifyHooks.removeVerification(true)
   ],
   get: [
-    globalHooks.attachPermissions()
+    globalHooks.attachPermissions(),
+    verifyHooks.removeVerification(true)
   ],
   create: [
-    globalHooks.attachPermissions()
+    emailVerification,
+    verifyHooks.removeVerification(),
+    globalHooks.attachPermissions(),
+    verifyHooks.removeVerification(true)
   ],
   update: [],
-  patch: [],
-  remove: []
+  patch: [
+    verifyHooks.removeVerification(),
+  ],
+  remove: [
+    verifyHooks.removeVerification(),
+  ]
 };
