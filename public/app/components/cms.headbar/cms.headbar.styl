@@ -144,22 +144,26 @@
     .dropdown-list li
       list-style: none
       color #2C3E50
-      padding 0.3em 1em
       cursor: pointer
 
       i
       a
+        display block
         font-size: 16px
         font-weight: normal
         color #2C3E50
         text-decoration: none
         cursor pointer
+        padding 0.3em 1em
 
-      &:not(.divider):hover a
+      &:hover a
         color white
 
     .dropdown-list li.divider
-      color
+      background-color: #dedede
+      margin 0 0.5em
+      height 2px
+      padding 0
 
     .dropdown-list li:hover
       background-color: #2980B9
